@@ -72,7 +72,7 @@ class App extends Component {
   render() {
 
     return (
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <MuiThemeProvider theme={theme}>
           <div>
             <Route exact path="/" render={({history})=> (
