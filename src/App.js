@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {Router, Route} from 'react-router-dom';
 import CreateUser from './components/CreateUser/';
 import EditUser from './components/EditUser/';
 import UserList from './components/UserList/';
 import {connect} from 'react-redux';
+import createHistory from "history/createBrowserHistory";
 import {setList, setSearch, setPage, setSort, setAscending, setEdit} from './Reducer';
 
 import {MuiThemeProvider} from '@material-ui/core';
@@ -72,10 +73,10 @@ class App extends Component {
   render() {
 
     return (
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <Router history={createHistory({ basename: process.env.PUBLIC_URL })}>
         <MuiThemeProvider theme={theme}>
           <div>
-            <Route exact path="/" render={({history})=> (
+            <Route exact path='/' render={({history})=> (
               <UserList
               userList={this.props.userList}
               editUser={this.props.editUser}
@@ -90,7 +91,7 @@ class App extends Component {
             />
             )}/>
 
-            <Route path="/create" render={({history}) => (
+            <Route path='/create' render={({history}) => (
               <CreateUser
                 mode="create"
                 page={this.props.page}
@@ -99,7 +100,7 @@ class App extends Component {
               />
             )}/>
 
-            <Route path="/edit" render={({history}) => (
+            <Route path='/edit' render={({history}) => (
               <EditUser
                 page={this.props.page}
                 onSubmit={this.saveUser}
@@ -110,7 +111,7 @@ class App extends Component {
             )}/>
           </div>
         </MuiThemeProvider>
-      </BrowserRouter>);
+      </Router>);
   }
 }
 
