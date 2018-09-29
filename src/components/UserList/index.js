@@ -9,7 +9,8 @@ import {Table,
   Input,
   InputLabel,
   FormControl,
-  AppBar
+  AppBar,
+  TableSortLabel
 } from '@material-ui/core';
 
 class UserList extends Component {
@@ -29,6 +30,7 @@ class UserList extends Component {
           <Table>
             <Header
               toggleSort={this.props.toggleSort}
+              ascending={this.props.ascending}
             />
             <Body
               userList={userList}
@@ -40,7 +42,7 @@ class UserList extends Component {
             />
           </Table>
           <Button onClick={this.props.toggleCreate}>
-              <Link to="/create">Create New User</Link>
+              <Link to={process.env.PUBLIC_URL+'/create'}>Create New User</Link>
           </Button>
         </div>
       )
@@ -48,15 +50,48 @@ class UserList extends Component {
   }
 
   function Header(props) {
+    const firstDir = props.ascending['first'] ? "asc" : "desc";
+    const lastDir = props.ascending['last'] ? "asc" : "desc";
+    const sexDir = props.ascending['sex'] ? "asc" : "desc";
+    const ageDir = props.ascending['age'] ? "asc" : "desc";
+
     return(
       <TableHead>
         <TableRow>
           <TableCell>Edit</TableCell>
           <TableCell>Delete</TableCell>
-          <TableCell><a onClick={() => props.toggleSort('first')}>First Name</a></TableCell>
-          <TableCell><a onClick={() => props.toggleSort('last')}>Last Name</a></TableCell>
-          <TableCell><a onClick={() => props.toggleSort('sex')}>Sex</a></TableCell>
-          <TableCell><a onClick={() => props.toggleSort('age')}>Age</a></TableCell>
+          <TableCell>
+            <TableSortLabel
+                    active={true}
+                    direction={firstDir}
+                    onClick={() => props.toggleSort('first')}
+                  >First Name
+            </TableSortLabel>
+          </TableCell>
+          <TableCell>
+            <TableSortLabel
+                    active={true}
+                    direction={lastDir}
+                    onClick={() => props.toggleSort('last')}
+                  >Last Name
+            </TableSortLabel>
+          </TableCell>
+          <TableCell>
+            <TableSortLabel
+                    active={true}
+                    direction={sexDir}
+                    onClick={() => props.toggleSort('sex')}
+                  >Sex
+            </TableSortLabel>
+          </TableCell>
+          <TableCell>
+            <TableSortLabel
+                    active={true}
+                    direction={ageDir}
+                    onClick={() => props.toggleSort('age')}
+                  >Age
+            </TableSortLabel>
+          </TableCell>
         </TableRow>
       </TableHead>
     );
